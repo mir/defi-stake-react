@@ -6,7 +6,7 @@ import {Token} from "../Token"
  
  export const Wallet = ({ supportedTokens }: WalletProps ) => {
      return (<div>{supportedTokens.map((token: Token) =>
-        <div><img src={token.image} width="20px"/> {token.name}: {token.address}</div>)}
+        <div><img src={token.image} width="15px"/> {token.name}: {token.address}</div>)}
         </div>
         )
  }

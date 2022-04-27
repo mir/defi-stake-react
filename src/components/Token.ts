@@ -15,8 +15,6 @@ export function getToken(_name: string, _address?: string): Token {
     };
 }
 
-export function getTokens(tokenNames: Array<string>): Array<Token> {
-    const tokens: Array<Token> = [];
-    tokenNames.forEach((name) => tokens.push(getToken(name)));
-    return tokens;
+export function getTokens(tokenNames: Array<string>): Array<Token> {    
+    return tokenNames.map((name) => getToken(name));    
 }
