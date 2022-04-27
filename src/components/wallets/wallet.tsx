@@ -1,9 +1,12 @@
-import { Token } from "@usedapp/core"
+import {Token} from "../Token"
 
  interface WalletProps {
     supportedTokens: Array<Token>
  }
  
  export const Wallet = ({ supportedTokens }: WalletProps ) => {
-     return (<div>Wallet</div>)
+     return (<div>{supportedTokens.map((token: Token) =>
+        <div><img src={token.image} width="20px"/> {token.name}: {token.address}</div>)}
+        </div>
+        )
  }

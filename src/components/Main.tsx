@@ -4,6 +4,7 @@ import deployments from "../chain-info/deployments/map.json"
 import { constants } from "ethers"
 
 import { getTokens, getToken } from "./Token"
+import { Wallet } from "./wallets"
 
 export const Main = () => {
     const { chainId } = useEthers()    
@@ -17,8 +18,6 @@ export const Main = () => {
     return (<div>
         chainName: {chainName}<br/>        
         tokenFarmAddress: {tokenFarmAddress}<br/>
-        {supportedTokens.map((token) =>
-            <div><img src={token.image} width="20px"/> {token.name}: {token.address}</div>
-        )}        
+        <Wallet supportedTokens={supportedTokens} />       
         </div>)
 }
