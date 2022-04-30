@@ -1,8 +1,8 @@
-import { Button, Input } from "@material-ui/core"
-import { useEthers, useTokenBalance } from "@usedapp/core"
+import { Button, CircularProgress, Input } from "@material-ui/core"
+import { useEthers, useNotifications, useTokenBalance } from "@usedapp/core"
 import { parseEther } from "ethers/lib/utils"
-import { ChangeEvent, useState } from "react"
-import { useStakeTokens } from "../../hooks/useStakeTokens"
+import { ChangeEvent, useEffect, useState } from "react"
+import { TRANSACTION_NAMES, useStakeTokens } from "../../hooks/useStakeTokens"
 import { formatTokenBalance, Token } from "../Token"
 
 interface TokenFormProps {
@@ -13,6 +13,7 @@ export const StakeForm = ({token}: TokenFormProps) => {
     const { address, name } = token
     const { account } = useEthers()
     const tokenBalance = formatTokenBalance(useTokenBalance(address, account))
+    const {notifications} = useNotifications()
 
     const [amount, setAmount] = useState<number | string | Array<number | string>>(0)
 
@@ -28,6 +29,18 @@ export const StakeForm = ({token}: TokenFormProps) => {
         return approveAndStake(amountAsWei.toString())
     }
 
+    const isMining = approveERC20State.status === "Mining"
+
+    useEffect(() => {        
+        if (notifications.filter((notification) => 
+            notification.type === "transactionSucceed" &&
+            notification.transactionName === TRANSACTION_NAMES.ERC20_APPROVE).length > 0) {
+        }
+        if (notifications.filter((notification) => 
+            notification.type === "transactionSucceed" &&
+            notification.transactionName === TRANSACTION_NAMES.STAKE_TOKEN).length > 0) {
+        }
+    }, [notifications])
     return (
         <div>
             <Input onChange={handleInputChange}/>
@@ -35,8 +48,9 @@ export const StakeForm = ({token}: TokenFormProps) => {
                 onClick={handleStakeSubmit}
                 color="primary"
                 size="large"
+                disabled={isMining }
                 >
-                Stake
+                {isMining? <CircularProgress size={26}/> : "Stake"}
             </Button>
         </div>
     )

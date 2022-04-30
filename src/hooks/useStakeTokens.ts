@@ -5,6 +5,11 @@ import erc20abi from "../chain-info/contracts/dependencies/OpenZeppelin/openzepp
 import deployments from "../chain-info/deployments/map.json"
 import { useEffect, useState } from "react"
 
+export enum TRANSACTION_NAMES {
+    ERC20_APPROVE = "Approve ERC20 transfer",
+    STAKE_TOKEN = "Stake token",
+}
+
 export const useStakeTokens = (tokenAddress: string) => {
     const {chainId} = useEthers() 
     const {abi} = TokenFarm
@@ -20,7 +25,7 @@ export const useStakeTokens = (tokenAddress: string) => {
      useContractFunction(
          erc20Contract,
          "approve",
-          {transactionName:"Approve ERC20 transfer "}
+          {transactionName: TRANSACTION_NAMES.ERC20_APPROVE}
           );
 
     const [amountToStake, setAmountToStake] = useState("0")
@@ -33,14 +38,14 @@ export const useStakeTokens = (tokenAddress: string) => {
      useContractFunction(
         tokenFarmContract,
          "stakeToken",
-          {transactionName:"Stake token"}
+          {transactionName: TRANSACTION_NAMES.STAKE_TOKEN}
           )    
 
     useEffect(() => {
         if (approveERC20State.status === "Success") {
             stakeSend(amountToStake, tokenAddress)
         }
-    }, [approveERC20State])
+    }, [approveERC20State, amountToStake, tokenAddress])
     return {approveAndStake, approveERC20State }
 
 }
