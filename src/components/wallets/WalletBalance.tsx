@@ -1,7 +1,5 @@
 import { formatTokenBalance, Token } from "../Token";
 import { useEthers, useTokenBalance } from "@usedapp/core";
-import { Box } from "@material-ui/core";
-import { formatUnits } from "@ethersproject/units"
 import { BalanceMsg } from "../BalanceMsg";
 
 export interface WalletBalanceProps {
@@ -15,8 +13,9 @@ export const WalletBalance = ({token}: WalletBalanceProps) => {
     const formattedTokenBalance = formatTokenBalance(tokenBalance)
     return (
         <BalanceMsg 
-            label={`Unstaked ${name} balance`}
+            label={`Unstaked ${name} balance (${tokenBalance}) of account (${account}):`}
+            address={address}                        
             image={image}
-            amount={formattedTokenBalance} />       
+            amount={formattedTokenBalance} /> 
     )
 }

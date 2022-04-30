@@ -1,7 +1,5 @@
 import { useEthers } from "@usedapp/core";
 import {Button, makeStyles} from "@material-ui/core"
-import { containerClasses } from "@mui/material";
-import { flexbox, padding } from "@mui/system";
 
 const useStyles = makeStyles((theme) => ({
     container: {

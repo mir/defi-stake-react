@@ -18,14 +18,16 @@ const useStyles = makeStyles(theme => ({
 interface BalanceMsgProps {
     label: string
     image: string
+    address: string
     amount: number
 }
 
-export const BalanceMsg = ({label, image, amount }: BalanceMsgProps) => {
+export const BalanceMsg = ({label, image, address, amount }: BalanceMsgProps) => {
     const classes = useStyles()
     return (
         <div className={classes.container}>
             <div>{label}</div>
+            <div>Address: {address}</div>
             <div className={classes.amount}>{amount}</div>
             <img className={classes.tokenImage} src={image} alt="token logo"/>
         </div>
