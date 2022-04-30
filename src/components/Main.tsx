@@ -12,7 +12,7 @@ export const Main = () => {
     const dappTokenAddress = chainId ? deployments[String(chainId)]["DappToken"][0] : constants.AddressZero
     const tokenFarmAddress = chainId ? deployments[String(chainId)]["TokenFarm"][0] : constants.AddressZero
 
-    const supportedTokens = getTokens(["weth", "dai", "fau"])
+    const supportedTokens = getTokens(["weth", "dai"])
     supportedTokens.push(getToken("dapp", dappTokenAddress))    
     
     return (<div>
